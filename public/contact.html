@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DraCo - Contact</title>
+  <!-- FAVICON -->
+	<link rel="icon" type="image/png" href="/images/logos/logo_symbol.png">
+
+	<!-- FONTS -->
+	<link href="https://fonts.googleapis.com/css2?family=Livvic:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/bf76f9de02.js" crossorigin="anonymous"></script>
+
+  <!-- POPPER -->
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+	<!-- BOOTSTRAP -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" href="/styles/styles.css">
+  <style>
+    /* Accordion styling */
+      .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+        transform: scale(.7) !important;
+      }
+      .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+      }
+  </style>
+
+	<!-- JQUERY -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="bg-light">
+  <header>
+    <!-- Nav Bar -->
+    <nav class="d-flex flex-sm-row">
+      <!-- Hamburger -->
+      <div class="dropdown d-sm-none border-0">
+        <a
+          class="btn"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img height="50px" id="burger" src="/images/misc/hamburger.png" />
+        </a>
+
+        <ul class="dropdown-menu livvic" style="width: 5rem !important">
+          <li><a class="dropdown-item" href="#">SHOP</a></li>
+          <li><a class="dropdown-item" href="#">CONTACT</a></li>
+          <li>
+            <a class="dropdown-item" id="burger-cart" href="cart.html"
+              >CART</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Nav links -->
+      <div
+        class="collapse navbar-collapse d-sm-flex col-sm-6 justify-content-center py-2 livvic"
+        id="navbarLinks"
+      >
+        <ul
+          class="navbar-nav text-uppercase ml-auto flex-sm-row align-items-center font-weight-bold"
+        >
+          <li class="navbar-item">
+            <a
+              class="nav-link text-white mx-5 mx-lg-4 mx-sm-4"
+              href="shop.html"
+              >SHOP</a
+            >
+          </li>
+          <li class="navbar-item">
+            <a
+              class="nav-link text-white mx-5 mx-lg-4 mx-sm-4"
+              href="contact.html"
+              >CONTACT</a
+            >
+          </li>
+          <li class="navbar-item">
+            <a
+              class="nav-link text-white mx-5 mx-lg-4 mx-sm-4"
+              href="cart.html"
+              >CART</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <a href="index.html" class="d-flex justify-content-center">
+      <img
+        id="header-img"
+        class="img-fluid"
+        src="/images/logos/logo_text_black_overlay.png"
+      />
+    </a>
+  </header>
+
+     <!-- About Us Section-->
+      <section class="container-fluid bg-radial-gradient-dark text-light" id="about">
+        <div class="container-fluid py-5">
+          <div class="col">
+            <div class="row">
+              <h1 class="text-center fs-1 livvic color gold pb-3"><i class="fa-solid fa-dragon"></i> ABOUT US <i class="fa-solid fa-dragon fa-flip-horizontal"></i></h1>
+            </div>
+            <div class="d-flex flex-md-row flex-column justify-content-around align-items-center">
+              <div class="row-sm-12 col-md-6 text-center">
+                <h5 class="fw-bold fst-italic fs-3 livvic color light py-3">Our Story</h5>
+                <p class="fw-light text-monospace lh-base color light" id="story">DraCo is the ultimate destination for discerning dragon owners who want to pamper their scaly friends. We specialize in high-end products and services that enhance the beauty, comfort, and performance of your dragons, from body care and luxury sleep items to riding apparel and accessories. Our staff are experts in dragon fashion and wellness who can help you find the perfect fit for your dragon’s personality and needs. We are the only boutique in world that has been awarded a seal by The Ministry of Magic. DraCo is not just a boutique, it’s a lifestyle for those who love dragons and appreciate their elegance and grace.</p>
+              </div>
+              <div class="row-sm-12 col-md-4 text-center">
+                <img class="align-items-lg-center" id="seal" src="/images/logos/MofM_logo_tp.png">
+              </div>
+            </div>
+            <div class="col text-center">
+              <img class="img-fluid" id="motto" src="/images/logos/motto_tp_light-2.png">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- FAQ Section -->
+      <section class="container-fluid text-dark" id="faq">
+        <div class="container-lg py-5 my-4">
+          <h1 class="text-center fs-1 livvic color gold pb-3"><i class="fa-solid fa-dragon"></i> INQUIRIES?<i class="fa-solid fa-dragon fa-flip-horizontal"></i></h1>
+          <div class="row justify-content-between px-0 px-lg-2 px-sm-4">
+            <!-- Accordion -->
+            <div class="col-sm-6 col-md-5 py-4">
+              <h5 class="fw-bold fst-italic livvic color dark py-3">Owl Policy</h5>
+              <div class="accordion accordion-flush accordion-borderless" id="accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Processing Times
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Orders are processed the same day as they are placed.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Domestic Flight Times
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Owls leave the shop thrice daily, except on Sundays. They will arrive when they are at the delivery destination.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Inflight Damages
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">We hire the finest Owls in the industry, rest assured they are vetted and certified delivery professionals. Your order will arrive in perfect condition or the owls will dispatch an immediate replacement.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-5 py-4">
+              <h5 class="fw-bold fst-italic livvic color py-3">International Overnight Owls</h5>
+              <div>
+                <div class="accordion" id="accordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header livvic">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="collapseOne">
+                        Express Delivery
+                      </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body fst-italic text-muted">Additional owls may be required for speedy deliveries.</div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header livvic">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        International Flight Times
+                      </button>
+                    </h2>
+                    <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body fst-italic text-muted">Once again, they will be there when they get there.</div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header livvic">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Customs and Duties
+                      </button>
+                    </h2>
+                    <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body fst-italic text-muted">You're a wizard. Don't worry about it.</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-5 py-4">
+            <h5 class="fw-bold fst-italic livvic color dark py-3">Returns & Exchanges</h5>
+            <div>
+              <div class="accordion" id="accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="collapseOne">
+                      Returns?
+                    </button>
+                  </h2>
+                  <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Our goods are perfectly curated. No returns.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Exchanges?
+                    </button>
+                  </h2>
+                  <div id="flush-collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Please review our damages policy.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-5 py-4">
+            <h5 class="fw-bold fst-italic livvic color dark py-3">Product Care</h5>
+            <div>
+              <div class="accordion" id="accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="collapseOne">
+                      How do I care for my new luxury goods?
+                    </button>
+                  </h2>
+                  <div id="flush-collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Please follow the maker's instructions and keep items away from open flames.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Saddles
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">DraCo recommends the use of a saddle tapestry and saddle balm for the safety and comfort of dragons and their riders.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header livvic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Anything else?
+                    </button>
+                  </h2>
+                  <div id="flush-collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body fst-italic text-muted">Please use the contact form below for any other questions or concerns regarding your purchase.</div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+
+  <!-- CONTACT FORM -->
+  <section class="container-fluid p-5 bg-dark text-light" id="contact_form">
+    <div class="container-lg py-5 my-4">
+    <!--Section heading-->
+    <h1 class="text-center fs-1 font-monospace livvic color light my-4">CONTACT US</h1>
+    <!--Section description-->
+    <p class="text-center w-responsive fw-normal fs-5 livvic mx-auto mb-5">Any further questions? Please do not hesitate to contact us directly.</p>
+
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-9 mb-md-0 mb-5" id="form_bg">
+            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input type="text" id="name" name="name" class="form-control">
+                            <label for="name" class="">Your name</label>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <input type="text" id="email" name="email" class="form-control">
+                            <label for="email" class="">Your email</label>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-3">
+                            <input type="text" id="subject" name="subject" class="form-control">
+                            <label for="subject" class="">Subject</label>
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-12">
+
+                        <div class="md-form mb-3">
+                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                            <label for="message">Your message</label>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Grid row-->
+
+            </form>
+
+            <div class="text-center text-md-left">
+                <a class="btn btn-dark btn-outline-light btn-rounded font-monospace livvic color gold mb-4" onclick="document.getElementById('contact-form').submit();">Send</a>
+            </div>
+            <div class="status"></div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-3 text-center">
+            <ul class="list-unstyled mb-0">
+                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                    <p>Super Secret Hidden Place</p>
+                </li>
+
+                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                    <p>+ 01 234 567 89</p>
+                </li>
+
+                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                    <p>contact@DraCo.dra</p>
+                </li>
+            </ul>
+        </div>
+        <!--Grid column-->
+    </div>
+    </div>
+
+  </section>
+	<!-- FOOTER -->
+  <footer class="bg-dark text-center text-white" id="footy">
+    <div class="container p-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/HolbertonSchoolTulsa/" role="button"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <!-- Twitter -->
+        <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/holbertontul?lang=en" role="button"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <!-- The 'Gram -->
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/holbertontul/?hl=en" role="button"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <!-- Github -->
+        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/conkobar/DraCo" role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+
+      <!-- Section: Form -->
+      <section class="">
+        <form action="">
+          <div class="row d-flex justify-content-center">
+            <div class="col-auto">
+              <p class="pt-2 font-monospace livvic color gold">News & Launches</p>
+            </div>
+            <div class="col-md-5 col-12">
+              <!-- Email input -->
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="emailform" class="form-control text-muted fw-lighter fst-italic " placeholder="Enter your Email" />
+              </div>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-outline-light btn-rounded font-monospace livvic color gold mb-4" data-mbd-ripple-color="dark">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Links -->
+      <section class="">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase livvic color gold">Menu</h5>
+            <!-- Menu links -->
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="shop.html" class="text-light text-decoration-none">Shop</a>
+              </li>
+              <li>
+                <a href="contact.html" class="text-light text-decoration-none">About</a>
+              </li>
+              <li>
+                <a href="cart.html" class="text-light text-decoration-none">Cart</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Shop links -->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase livvic color gold">Shop</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="shop.html" class="text-light text-decoration-none">Body</a>
+              </li>
+              <li>
+                <a href="shop.html" class="text-light text-decoration-none">Sleep</a>
+              </li>
+              <li>
+                <a href="shop.html" class="text-light text-decoration-none">Flight</a>
+              </li>
+            </ul>
+          </div>
+          <!-- About links -->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase livvic color gold">Help</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="contact.html" class="text-light text-decoration-none">About</a>
+              </li>
+              <li>
+                <a href="contact.html" class="text-light text-decoration-none">FAQ</a>
+              </li>
+              <li>
+                <a href="contact.html" class="text-light text-decoration-none">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mb-4 mt-md-5">
+            <a href="index.html">
+            <img class="img-fluid" img id="footer-logo" src="/images/logos/logo_text_bordered.png" alt="logo" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center text dark p-3">
+      © 2020 Copyright:
+      <a class="text dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+  </footer>
+
+  </div>
+  <!-- End of .container -->
+  <!-- <div class="attributions">
+    <a href="https://www.flaticon.com/free-icons/menu-bar" title="menu bar icons">Menu bar icons created by Md Tanvirul Haque - Flaticon</a>
+  </div> -->
+</body>
+</html>
