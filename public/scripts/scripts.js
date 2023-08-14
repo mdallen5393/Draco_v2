@@ -74,7 +74,7 @@ db.collection('Testimonials')
         <div class="container">
           <div class="row d-flex align-items-center">
             <div class="col-sm-12 col-md-4 p-3 image-container">
-              <img src="../images/misc/pngegg.png" class="rotate border-image" height="150px">
+              <img src="images/misc/pngegg.png" class="rotate border-image" height="150px">
               <img
                 src="${doc.data().imageURL}"
                 class="content-image rounded-circle mx-auto d-block"
