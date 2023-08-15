@@ -1,3 +1,4 @@
+// fb db info
 const firebaseConfig = {
   apiKey: 'AIzaSyDhnBjqqa7oQ9jASQxQZLKHz8QiDcq0Daw',
   authDomain: 'holberton-draco.firebaseapp.com',
@@ -7,7 +8,7 @@ const firebaseConfig = {
   appId: '1:316650761146:web:e178596d92e83e469f4b83',
   measurementId: 'G-0VG0RJPC0V',
 };
-
+// create database connection
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(app);
 
@@ -17,6 +18,9 @@ let testimonials = $('#testimonials-list');
 
 // products page content
 db.collection('Products').onSnapshot((querySnapshot) => {
+  // empty out the products
+  $('#products').empty();
+  // create the products
   querySnapshot.forEach((doc) => {
     let li = $(`
       <div
@@ -55,6 +59,7 @@ db.collection('Products').onSnapshot((querySnapshot) => {
         </div>
       </div>
     `);
+    // add the product
     $('#products').append(li);
   });
 });
@@ -103,6 +108,7 @@ db.collection('Testimonials')
     });
   });
 
+// set carousel item height
 function setCarouselItemHeight() {
   let maxHeight = 0;
   $('.carousel-item').each(function () {
@@ -114,6 +120,7 @@ function setCarouselItemHeight() {
   $('.carousel-item').height(maxHeight);
 }
 
+// scale carousel with window size
 $(window).on('resize', function () {
   let maxHeight = 0;
   $('.carousel-item').height('auto'); // reset the height of all carousel items to auto
