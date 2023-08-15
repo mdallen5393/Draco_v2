@@ -16,13 +16,23 @@ const db = firebase.firestore(app);
 let ul = $('#product-list');
 let testimonials = $('#testimonials-list');
 
-// products page content
-db.collection('Products').onSnapshot((querySnapshot) => {
-  // empty out the products
-  $('#products').empty();
-  // create the products
-  querySnapshot.forEach((doc) => {
-    let li = $(`
+
+// Function to load products for a specific page
+// Pagination variables
+const productsPerPage = 12;
+let currentPage = 1;
+
+function loadProductsPage(pageNumber) {
+  const productsRef = db.collection('Products');
+  const query = productsRef
+    .limit(productsPerPage)
+    .startAfter((pageNumber - 1) * productsPerPage);
+
+  query.onSnapshot((querySnapshot) => {
+    $('#products').empty(); // Empty out the products
+
+    querySnapshot.forEach((doc) => {
+      let li = $(`
       <div
         class="card d-flex justify-content-center m-3 shadow"
         style="width: 18rem"
@@ -59,10 +69,72 @@ db.collection('Products').onSnapshot((querySnapshot) => {
         </div>
       </div>
     `);
-    // add the product
-    $('#products').append(li);
+    });
   });
+}
+
+loadProductsPage(currentPage);
+
+// Pagination controls
+$('#prevPage').on('click', function () {
+  if (currentPage > 1) {
+    currentPage--;
+    loadProductsPage(currentPage);
+  }
 });
+
+$('#nextPage').on('click', function () {
+  currentPage++;
+  loadProductsPage(currentPage);
+});
+
+// products page content OLD LIKE YOUR MOTHER
+// db.collection('Products').onSnapshot((querySnapshot) => {
+//   // empty out the products
+//   $('#products').empty();
+//   // create the products
+//   querySnapshot.forEach((doc) => {
+//     let li = $(`
+//       <div
+//         class="card d-flex justify-content-center m-3 shadow"
+//         style="width: 18rem"
+//         id="${doc.data().keywords.forEach((keyword) => keyword)}"
+//       >
+//         <img
+//           src="${doc.data().imageURL}"
+//           class="card-img-top"
+//           alt="product image"
+//           style="width: 100%; height: auto"
+//         />
+//         <hr style="width: 90%; margin: auto" />
+//         <div class="card-body d-flex flex-column text-center">
+//           <div class="d-flex row">
+//             <h4 class="livvic gold">${doc.data().name}</h4>
+//             <p>${doc.data().description}</p>
+//           </div>
+//         </div>
+//         <div class="card-footer d-flex pt-3">
+//           <div class="d-flex mx-2">
+//             <img
+//               src="images/misc/galleon_black.png"
+//               class="pt-2 pb-3"
+//               style="width: 10%"
+//             />
+//             <h2 class="py-1">${doc.data().price}</h2>
+//           </div>
+//           <div class="pt-2 mx-2">
+//             <i
+//               class="fa-solid fa-cart-shopping"
+//               onclick="addToCart('${doc.data().name}', '${doc.data().price}')"
+//             ></i>
+//           </div>
+//         </div>
+//       </div>
+//     `);
+//     // add the product
+//     $('#products').append(li);
+//   });
+// });
 
 // Testimonials Carousel`
 let imagesLoaded = 0;
@@ -126,24 +198,6 @@ $(window).on('resize', function () {
   $('.carousel-item').height('auto'); // reset the height of all carousel items to auto
   setCarouselItemHeight();
 });
-
-// Owl carousel
-// $('.owl-carousel').owlCarousel({
-//   loop:true,
-//   margin:10,
-//   nav:true,
-//   responsive:{
-//       0:{
-//           items:1
-//       },
-//       600:{
-//           items:3
-//       },
-//       1000:{
-//           items:5
-//       }
-//   }
-// });
 
 // if no items match search, suggest contact page
 function doubleCheckProducts() {
@@ -215,6 +269,15 @@ async function searchKeywords(keyword) {
     `);
     $('#products').append(li);
   });
+
+  // Adjust pagination controls
+  currentPage = 1;
+  $('#prevPage').prop('disabled', true); // Disable previous button on first page
+  $('#nextPage').prop('disabled', false); // Enable next button on search
+
+  // Load products for the first page
+  loadProductsPage(currentPage);
+  
   doubleCheckProducts();
 }
 
