@@ -16,11 +16,9 @@ let ul = $('#product-list');
 let testimonials = $('#testimonials-list');
 
 // products page content
-db.collection('Products')
-  .get()
-  .then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      let li = $(`
+db.collection('Products').onSnapshot((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    let li = $(`
       <div
         class="card d-flex justify-content-center m-3 shadow"
         style="width: 18rem"
@@ -42,7 +40,7 @@ db.collection('Products')
         <div class="card-footer d-flex pt-3">
           <div class="d-flex mx-2">
             <img
-              src="../images/misc/galleon_black.png"
+              src="images/misc/galleon_black.png"
               class="pt-2 pb-3"
               style="width: 10%"
             />
@@ -57,9 +55,9 @@ db.collection('Products')
         </div>
       </div>
     `);
-      $('#products').append(li);
-    });
+    $('#products').append(li);
   });
+});
 
 // Testimonials Carousel`
 let imagesLoaded = 0;
@@ -194,7 +192,7 @@ async function searchKeywords(keyword) {
         <div class="card-footer d-flex pt-3">
           <div class="d-flex mx-2">
             <img
-              src="../images/misc/galleon_black.png"
+              src="images/misc/galleon_black.png"
               class="pt-2 pb-3"
               style="width: 10%; height: 100%"
             />
