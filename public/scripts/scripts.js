@@ -206,9 +206,8 @@ async function searchKeywords(keyword) {
             <h2 class="py-1">${doc.data().price}</h2>
           </div>
           <div class="pt-2 mx-2">
-            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${
-              doc.data().name
-            }', '${doc.data().price}')"></i>
+            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${doc.data().name
+      }', '${doc.data().price}')"></i>
           </div>
         </div>
       </div>
