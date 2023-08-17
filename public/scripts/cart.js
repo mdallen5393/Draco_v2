@@ -46,25 +46,63 @@ function getCartFromStorage() {
   return cart;
 }
 
-// adds a product to the session cart
-function addToCart(data) {
-  // retrieve current cart or create new one
-  let cart = getCartFromStorage();
-  // check whether item is in cart already (if so, update quantity)
-  let itemIndex = cart.findIndex((item) => item.name === data.name);
-  if (itemIndex !== -1) {
-    cart[itemIndex].quantity += data.quantity;
-  } else {
-    cart.push({ name: data.name, price: data.price, quantity: 1 });
+async function addToCart(productDoc) {
+  console.log("Add to cart");
+  try {
+    // 1. Get the user's UID from Firebase Authentication.
+    const user = firebase.auth().currentUser;
+    if (!user) {
+      console.log("User not authenticated");
+      return;
+    }
+    
+    // 2. Check if a cart document exists for the user.
+    const cartRef = db.collection("carts").doc(user.uid);
+    const cartDoc = await cartRef.get();
+    
+    let cartData = { products: [] };
+    
+    if (cartDoc.exists) {
+      // If the cart document exists, get the current cart data.
+      cartData = cartDoc.data();
+    } else {
+      // If the cart document doesn't exist, create it.
+      await cartRef.set(cartData);
+    }
+    
+    // 3. Add the product to the cart.
+    const productData = productDoc.data(); // Get the product data
+    const productWithId = { ...productData, id: productDoc.id }; // Add the document ID to the product data
+    const updatedProducts = [...cartData.products, productWithId];
+    
+    // Update the cart document with the new list of products.
+    await cartRef.update({ products: updatedProducts });
+    
+    console.log("Product added to cart successfully");
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
   }
-  // save updated cart
-  sessionStorage.setItem('cart', JSON.stringify(cart));
-
-  // update cart count
-  // add cart count to button at the top and in burger
 }
+// adds a product to the session cart
+// function addToCart(data) {
+//   // retrieve current cart or create new one
+//   let cart = getCartFromStorage();
+//   // check whether item is in cart already (if so, update quantity)
+//   let itemIndex = cart.findIndex((item) => item.name === data.name);
+//   if (itemIndex !== -1) {
+//     cart[itemIndex].quantity += data.quantity;
+//   } else {
+//     cart.push({ name: data.name, price: data.price, quantity: 1 });
+//   }
+//   // save updated cart
+//   sessionStorage.setItem('cart', JSON.stringify(cart));
+
+//   // update cart count
+//   // add cart count to button at the top and in burger
+// }
 
 // remove an item from cart, or lower the count
+
 function removeFromCart(item) {
   let cart = getCartFromStorage();
   let itemIndex = cart.findIndex((cartItem) => cartItem.name === item);

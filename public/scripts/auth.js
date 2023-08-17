@@ -35,14 +35,13 @@ firebase.auth().signInWithPopup(provider)
   });
 
 // listener to monitor auth state
-firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    console.log("User signed in:", user);
-  })
-  .catch((error) => {
-    console.error("Error signing in:", error);
-  });
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log("User is signed in:", user);
+  } else {
+    console.log("No user is signed in.");
+  }
+});
 
 // sign out  
 firebase.auth().signOut()
