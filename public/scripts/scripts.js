@@ -53,7 +53,7 @@ db.collection('Products').onSnapshot((querySnapshot) => {
           <div class="pt-2 mx-2">
             <i
               class="fa-solid fa-cart-shopping"
-              onclick="addToCart('${doc.data().id}')"
+              onclick="addToCart('${doc.id}')"
             ></i>
           </div>
         </div>

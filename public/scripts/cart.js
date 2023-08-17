@@ -47,7 +47,7 @@ function getCartFromStorage() {
 }
 
 async function addToCart(productDoc) {
-  console.log("Add to cart");
+  console.log("Add to cart" + productDoc);
   try {
     // 1. Get the user's UID from Firebase Authentication.
     const user = firebase.auth().currentUser;
