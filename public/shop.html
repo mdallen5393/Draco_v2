@@ -35,6 +35,8 @@
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="styles/styles.css" />
+    <!-- FirebaseUI CSS -->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.css" />
 
     <!-- JQUERY -->
     <script
@@ -144,10 +146,10 @@
 
     <!-- PRODUCTS -->
     <section id="shop">
-      <div
-        class="d-flex flex-wrap justify-content-center py-5"
-        id="products"
-      ></div>
+      <div id="firebaseui-auth-container">
+      </div>
+      <div class="d-flex flex-wrap justify-content-center py-5" id="products">
+      </div>
     </section>
 
     <!-- FOOTER -->
@@ -316,6 +318,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     
+    <!-- FirebaseUI JavaScript -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.js"></script>
+
     <script src="scripts/scripts.js"></script>
     <script src="scripts/pages.js"></script>
     <script src="scripts/cart.js"></script>
