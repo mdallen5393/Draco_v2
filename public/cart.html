@@ -112,150 +112,20 @@
         <div class="col">
           <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
             <div class="card-body p-4">
-
-              <div class="row">
+              <div id="cart-card" class="row">
 
                 <div class="col-lg-7">
                   <h5 class="mb-3 livvic fw-semibold"><a href="shop.html" class="text-body"><i class="fa-solid fa-circle-arrow-left"></i> BACK TO SHOP</a></h5>
                   <hr>
+                  <div class="py-3">
+                    <div id="firebaseui-auth-container"></div>
+                  </div>
                   <!-- Shopping Cart Items -->
-                  <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                      <p class="mb-1">Shopping cart</p>
-                      <p class="mb-0">You have 4 items in your cart</p>
-                    </div>
-                  </div>
-                  <div id="cart" class="items">
-                    <!-- Item 1-->
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex flex-row align-items-center">
-                            <div>
-                              <img
-                                src="https://firebasestorage.googleapis.com/v0/b/holberton-draco.appspot.com/o/Dragon%20Jammies%201.png?alt=media&token=18c6ac3a-92d7-4eef-a445-35c1f97bb2b8"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                            </div>
-                            <div class="ms-3">
-                              <p class="livvic">Silk Pajamas</p>
-                            </div>
-                          </div>
-                          <div class="d-flex flex-row align-items-center">
-                            <div class="def-number-input number-input">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                class="minus"></button>
-                              <input class="quantity fw-bold text-dark" min="1" name="quantity" value="1" type="number">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            </div>
-                            <div style="width: 80px;">
-                              <h5 class="mb-0">2455</h5>
-                            </div>
-                            <a href="#!" style="color: #cecece;"><i class="fa-solid fa-broom"></i></a>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Item 2-->
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex flex-row align-items-center">
-                            <div>
-                              <img
-                              src="https://firebasestorage.googleapis.com/v0/b/holberton-draco.appspot.com/o/product_dragon_nest.png?alt=media&token=3b06aa39-45e5-4c94-a051-516435d0fddd"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                            </div>
-                            <div class="ms-3">
-                              <p class="livvic">Luxury Dragon Nest Pad</p>
-                            </div>
-                          </div>
-                          <div class="d-flex flex-row align-items-center">
-                            <div class="def-number-input number-input">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                class="minus"></button>
-                              <input class="quantity fw-bold text-dark" min="0" name="quantity" value="1" type="number">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            </div>
-                            <div style="width: 80px;">
-                              <h5 class="mb-0">15000</h5>
-                            </div>
-                            <a href="#!" style="color: #cecece;"><i class="fa-solid fa-broom"></i></a>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Item 3-->
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex flex-row align-items-center">
-                            <div>
-                              <img
-                                src="https://firebasestorage.googleapis.com/v0/b/holberton-draco.appspot.com/o/pillow_1.png?alt=media&token=79fea6a3-d468-4a4a-adcc-13558b9f9d18"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                            </div>
-                            <div class="ms-3">
-                              <p class="livvic">Gold-Plated Pillow</p>
-                            </div>
-                          </div>
-                          <div class="d-flex flex-row align-items-center">
-                            <div class="def-number-input number-input">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                class="minus"></button>
-                              <input class="quantity fw-bold text-dark" min="0" name="quantity" value="1" type="number">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            </div>
-                            <div style="width: 80px;">
-                              <h5 class="mb-0">10000</h5>
-                            </div>
-                            <a href="#!" style="color: #cecece;"><i class="fa-solid fa-broom"></i></a>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Item 4-->
-                    <div class="card mb-3 mb-lg-0">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex flex-row align-items-center">
-                            <div>
-                              <img
-                                src="https://firebasestorage.googleapis.com/v0/b/holberton-draco.appspot.com/o/Eucalyptus%20wash.png?alt=media&token=44b5c16d-1650-4748-a4f3-e0819bb90c46"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                            </div>
-                            <div class="ms-3">
-                              <p class="livvic">Eucalyptus Dragon Body Wash</p>
-                            </div>
-                          </div>
-                          <div class="d-flex flex-row align-items-center">
-                            <div class="def-number-input number-input">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                class="minus"></button>
-                              <input class="quantity fw-bold text-dark" min="0" name="quantity" value="1" type="number">
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                            </div>
-                            <div style="width: 80px;">
-                              <h5 class="mb-0">38</h5>
-                            </div>
-                            <a href="#!" style="color: #cecece;"><i class="fa-solid fa-broom"></i></a>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                  <div id="cart" class="items"></div>
                 </div>
                 <div class="col-lg-5">
                   <!-- Payment Details -->
-                  <div class="card bg-radial-gradient-dark text-light rounded-3">
+                  <div id="payment" class="card bg-radial-gradient-dark text-light rounded-3">
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="mb-0 livvic color gold">Payment Details</h5>
@@ -500,14 +370,22 @@
 		</div> -->
 
 	<!-- FIREBASE/FIRESTORE SCRIPTS -->
-	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
-  <!-- SCRIPTS -->
-	<script src="scripts/scripts.js"></script>
+  <!-- FirebaseUI JavaScript -->
+  <!-- <script src="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"
+  />
+
+  <script src="scripts/scripts.js"></script>
   <script type="module" src="scripts/auth.js"></script>
+  <script src="scripts/pages.js"></script>
   <script src="scripts/shop.js"></script>
   <script src="scripts/cart.js"></script>
 

@@ -1,13 +1,14 @@
 // init firebaseui widget
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-var uiConfig = {
+const shopUiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       // User successfully signed in.
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
-      document.getElementById('firebaseui-auth-container').style.display = 'none';
+      document.getElementById('firebaseui-auth-container').style.display =
+        'none';
       document.getElementById('search-shop').style.visibility = 'visible';
 
       loadProductList();
@@ -37,4 +38,4 @@ var uiConfig = {
 };
 
 // The start method will wait until the DOM is loaded.
-ui.start('#firebaseui-auth-container', uiConfig);
+ui.start('#firebaseui-auth-container', shopUiConfig);

@@ -1,137 +1,161 @@
+// show the cart when page opens
+document.getElementById('firebaseui-auth-container').style.display = 'none';
+showCart();
 
+// show user's cart
+async function showCart() {
+  await db.collection('Carts').onSnapshot((querySnapshot) => {
+    // populate the cart
+    querySnapshot.forEach((doc) => {
+      // clean out cart
+      $('#cart').empty();
+      doc.data().products.forEach((product) => {
+        // make cart object
+        let li = $(`
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-row align-items-center">
+                  <div>
+                    <img
+                      src="${product.imageURL}"
+                      class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;"
+                    >
+                  </div>
+                  <div class="ms-3">
+                    <p class="livvic">${product.name}</p>
+                  </div>
+                </div>
+                <div class="d-flex flex-row align-items-center">
+                  <div class="def-number-input number-input">
+                    <button
+                      onclick="updateCount('${product.id}', 'minus')"
+                      class="minus"
+                    ></button>
+                    <input
+                      class="quantity fw-bold text-dark"
+                      min="1"
+                      name="quantity"
+                      value="${product.count}"
+                      type="number"
+                    >
+                    <button
+                      onclick="updateCount('${product.id}', 'plus')"
+                      class="plus"
+                    ></button>
+                  </div>
+                  <div style="width: 80px;">
+                    <h5 class="mb-0">${product.price * product.count}</h5>
+                  </div>
+                  <a
+                    href="#!"
+                    onclick="removeProduct('${product.id}')"
+                    style="color: #cecece;"
+                  >
+                    <i class="fa-solid fa-broom"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `);
+        // add cart object to cart
+        $('#cart').append(li);
+      });
+    });
+  });
+}
 
+// remove a product from user's cart
+async function removeProduct(productID) {
+  if (firebase.auth().currentUser) {
+    // Get the current user's ID
+    const userId = firebase.auth().currentUser.uid;
 
+    console.log(`User ${userId} removing productID ${productID} from cart.`);
+    try {
+      // 1. Get the user's UID from Firebase Authentication.
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.log('User not authenticated');
+        return;
+      }
 
+      // 2. Check if a cart document exists for the user.
+      const cartRef = db.collection('Carts').doc(user.uid);
+      const cartDoc = await cartRef.get();
 
+      if (cartDoc.exists) {
+        // If the cart document exists, get the current cart data.
+        let cartData = cartDoc.data();
 
+        // 3. Remove the product from the cart.
+        const updatedProducts = cartData.products.filter(
+          (product) => product.id !== productID
+        );
 
+        // Update the cart document with the new list of products.
+        await cartRef.update({ products: updatedProducts });
+        console.log('Product removed from cart successfully');
 
+        // show the new cart
+        showCart();
+      } else {
+        console.log('Cart document does not exist');
+      }
+    } catch (error) {
+      console.error('Error removing product from cart:', error);
+    }
+  } else console.log('No current user');
+}
 
-// // when page loads
-// $(document).ready(showCart());
+// increment amount of a product in user's cart
+async function updateCount(productID, plusMinus) {
+  if (firebase.auth().currentUser) {
+    // Get the current user's ID
+    const userId = firebase.auth().currentUser.uid;
 
-// // shows the cart
-// function showCart() {
-//   let cart = getCartFromStorage();
-//   // loop thru cart and make html elements from it
-//   for (let item of cart) {
-//     cart.forEach((item) => {
-//       let itemElem = $(`
-//         <div class="card mb-3">
-//           <div class="card-body">
-//             <div class="d-flex justify-content-between">
-//               <div class="d-flex flex-row align-items-center">
-//                 <div>
-//                   <img
-//                     src=""
-//                     class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-//                 </div>
-//                 <div class="ms-3">
-//                   <h5 class="livvic">Samsung galaxy Note 10 </h5>
-//                 </div>
-//               </div>
-//               <div class="d-flex flex-row align-items-center">
-//                 <div style="width: 50px;">
-//                   <h5 class="fw-normal mb-0">2</h5>
-//                 </div>
-//                 <div style="width: 80px;">
-//                   <h5 class="mb-0">$900</h5>
-//                 </div>
-//                 <a href="#!" style="color: #cecece;"><i class="fa-solid fa-broom"></i></a>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       `);
-//       $('.item').append(itemElem);
-//     });
-//   }
-//   console.log(cart);
-// }
+    console.log(
+      `User ${userId} updating count of productID ${productID} in cart.`
+    );
+    try {
+      // 1. Get the user's UID from Firebase Authentication.
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.log('User not authenticated');
+        return;
+      }
 
-// // get our cart
-// function getCartFromStorage() {
-//   let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-//   return cart;
-// }
+      // 2. Check if a cart document exists for the user.
+      const cartRef = db.collection('Carts').doc(user.uid);
+      const cartDoc = await cartRef.get();
 
-// async function addToCart(productDoc) {
-//   console.log("Add to cart: " + productDoc);
-//   try {
-//     // 1. Get the user's UID from Firebase Authentication.
-//     const user = firebase.auth().currentUser;
-//     if (!user) {
-//       console.log("User not authenticated");
-//       return;
-//     }
+      if (cartDoc.exists) {
+        // If the cart document exists, get the current cart data.
+        let cartData = cartDoc.data();
 
-//     // 2. Check if a cart document exists for the user.
-//     const cartRef = db.collection("Carts").doc(user.uid);
-//     const cartDoc = await cartRef.get();
+        // 3. Update the count of the product in the cart.
+        const updatedProducts = cartData.products.map((product) => {
+          if (product.id === productID) {
+            if (plusMinus === 'plus') {
+              return { ...product, count: product.count + 1 };
+            } else if (plusMinus === 'minus') {
+              return { ...product, count: Math.max(0, product.count - 1) };
+            }
+          } else {
+            return product;
+          }
+        });
 
-//     let cartData = { products: [] };
+        // Update the cart document with the new list of products.
+        await cartRef.update({ products: updatedProducts });
 
-//     if (cartDoc.exists) {
-//       // If the cart document exists, get the current cart data.
-//       cartData = cartDoc.data();
-//     } else {
-//       // If the cart document doesn't exist, create it.
-//       await cartRef.set(cartData);
-//     }
-
-//     // 3. Add the product to the cart.
-//     const productData = productDoc.data(); // Get the product data
-//     const productWithId = { ...productData, id: productDoc.id }; // Add the document ID to the product data
-//     const updatedProducts = [...cartData.products, productWithId];
-
-//     // Update the cart document with the new list of products.
-//     await cartRef.update({ products: updatedProducts });
-
-//     console.log("Product added to cart successfully");
-//   } catch (error) {
-//     console.error("Error adding product to cart:", error);
-//   }
-// }
-// adds a product to the session cart
-// function addToCart(data) {
-//   // retrieve current cart or create new one
-//   let cart = getCartFromStorage();
-//   // check whether item is in cart already (if so, update quantity)
-//   let itemIndex = cart.findIndex((item) => item.name === data.name);
-//   if (itemIndex !== -1) {
-//     cart[itemIndex].quantity += data.quantity;
-//   } else {
-//     cart.push({ name: data.name, price: data.price, quantity: 1 });
-//   }
-//   // save updated cart
-//   sessionStorage.setItem('cart', JSON.stringify(cart));
-
-//   // update cart count
-//   // add cart count to button at the top and in burger
-// }
-
-// remove an item from cart, or lower the count
-
-// function removeFromCart(item) {
-//   let cart = getCartFromStorage();
-//   let itemIndex = cart.findIndex((cartItem) => cartItem.name === item);
-//   if (itemIndex !== -1) {
-//     cart.splice(itemIndex, 1);
-//     sessionStorage.setItem('cart', JSON.stringify(cart));
-//   }
-// }
-
-// // empty cart
-// function clearCart() {
-//   sessionStorage.clear();
-// }
-
-// example cart usage
-// $('#addToCartButton').on('click', () => {
-//   let name = 'Example Product';
-//   let price = 125;
-//   let quantity = 1;
-//   console.log('pressed');
-//   addToCart(name, price, quantity);
-//   showCart();
-// });
+        console.log('Product count updated successfully');
+      } else {
+        console.log('Cart document does not exist');
+      }
+    } catch (error) {
+      console.error('Error updating product count:', error);
+    }
+  } else console.log('No current user');
+}
