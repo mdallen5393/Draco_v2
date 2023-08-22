@@ -54,7 +54,7 @@ async function showCart() {
                     ></button>
                   </div>
                   <div style="width: 80px;">
-                    <h5 class="mb-0">${product.price * product.count}</h5>
+                    <h5 class="mb-0">${product.price}</h5>
                   </div>
                   <a
                     href="#!"
