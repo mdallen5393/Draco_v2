@@ -299,4 +299,12 @@ $('#search-bar').on('keyup', function (e) {
   }
 });
 
-// i need to make the search show all products
+// sign out current firebase user
+async function signOutUser() {
+  try {
+    await firebase.auth().signOut();
+    console.log('User signed out successfully');
+  } catch (error) {
+    console.error('Error signing out user:', error);
+  }
+}
