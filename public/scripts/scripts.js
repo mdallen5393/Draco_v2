@@ -19,83 +19,85 @@ let testimonials = $('#testimonials-list');
 
 // Function to load products for a specific page
 // Pagination variables
-const productsPerPage = 12;
+const productsPerPage = 6;
 let currentPage = 1;
+let lastVisibleDoc = null;  // Store the last document from the previous query
 
 function loadProductsPage(pageNumber) {
   const productsRef = db.collection('Products');
   // const query = productsRef
   //   .limit(productsPerPage)
   //   .startAfter((pageNumber - 1) * productsPerPage);
-  let lastVisibleDoc = null;  // Store the last document from the previous query
 
-  function loadProductsPage(pageNumber) {
-    const productsRef = db.collection('Products');
-    let query = productsRef.orderBy('name').limit(productsPerPage);  // Using 'name' for ordering
+  let query = productsRef.orderBy('name').limit(productsPerPage);  // Using 'name' for ordering
 
-    if (pageNumber !== 1 && lastVisibleDoc) {
-      query = query.startAfter(lastVisibleDoc);
-    }
-    query.onSnapshot((querySnapshot) => {
-      $('#products').empty(); // Empty out the products
-
-      querySnapshot.forEach((doc) => {
-        let li = $(`
-      <div
-        class="card d-flex justify-content-center m-3 shadow"
-        style="width: 18rem"
-        id="${doc.data().keywords.forEach((keyword) => keyword)}"
-      >
-        <img
-          src="${doc.data().imageURL}"
-          class="card-img-top"
-          alt="product image"
-          style="width: 100%; height: auto"
-        />
-        <hr style="width: 90%; margin: auto" />
-        <div class="card-body d-flex flex-column text-center">
-          <div class="d-flex row">
-            <h4 class="livvic gold">${doc.data().name}</h4>
-            <p>${doc.data().description}</p>
-          </div>
-        </div>
-        <div class="card-footer d-flex pt-3">
-          <div class="d-flex mx-2">
-            <img
-              src="images/misc/galleon_black.png"
-              class="pt-2 pb-3"
-              style="width: 10%"
-            />
-            <h2 class="py-1">${doc.data().price}</h2>
-          </div>
-          <div class="pt-2 mx-2">
-            <i
-              class="fa-solid fa-cart-shopping"
-              onclick="addToCart('${doc.data().name}', '${doc.data().price}')"
-            ></i>
-          </div>
-        </div>
-      </div>
-    `);
-      });
-      lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-    });
+  if (pageNumber !== 1 && lastVisibleDoc) {
+    query = query.startAfter(lastVisibleDoc);
   }
+  query.onSnapshot((querySnapshot) => {
+    $('#products').empty(); // Empty out the products
 
-  loadProductsPage(currentPage);
+    querySnapshot.forEach((doc) => {
+      let li = $(`
+        <div
+          class="card d-flex justify-content-center m-3 shadow"
+          style="width: 18rem"
+          id="${doc.data().keywords.forEach((keyword) => keyword)}"
+        >
+          <img
+            src="${doc.data().imageURL}"
+            class="card-img-top"
+            alt="product image"
+            style="width: 100%; height: auto"
+          />
+          <hr style="width: 90%; margin: auto" />
+          <div class="card-body d-flex flex-column text-center">
+            <div class="d-flex row">
+              <h4 class="livvic gold">${doc.data().name}</h4>
+              <p>${doc.data().description}</p>
+            </div>
+          </div>
+          <div class="card-footer d-flex pt-3">
+            <div class="d-flex mx-2">
+              <img
+                src="images/misc/galleon_black.png"
+                class="pt-2 pb-3"
+                style="width: 10%"
+              />
+              <h2 class="py-1">${doc.data().price}</h2>
+            </div>
+            <div class="pt-2 mx-2">
+              <i
+                class="fa-solid fa-cart-shopping"
+                onclick="addToCart('${doc.data().name}', '${doc.data().price}')"
+              ></i>
+            </div>
+          </div>
+        </div>
+      `);
 
-  // Pagination controls
-  $('#prevPage').on('click', function () {
-    if (currentPage > 1) {
-      currentPage--;
-      loadProductsPage(currentPage);
-    }
+      $('#products').append(li);
+    });
+    lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
   });
+}
 
-  $('#nextPage').on('click', function () {
-    currentPage++;
+loadProductsPage(currentPage);
+
+
+function loadPreviousPage() {
+  console.log('pressed previous')
+  if (currentPage > 1) {
+    currentPage--;
     loadProductsPage(currentPage);
-  });
+  }
+}
+
+function loadNextPage() {
+  console.log('pressed next page');
+  currentPage++;
+  loadProductsPage(currentPage);
+}
 
   // products page content OLD LIKE YOUR MOTHER
   // db.collection('Products').onSnapshot((querySnapshot) => {
@@ -297,5 +299,5 @@ function loadProductsPage(pageNumber) {
       searchKeywords(this.value);
     }
   });
-}
+
 // i need to make the search show all products
