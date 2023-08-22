@@ -58,6 +58,7 @@ async function addToCart(productDoc) {
           await cartRef.update({ products: updatedProducts });
 
           console.log('Product added to cart successfully');
+          alert('Product added to cart successfully');
         })
         .catch((err) => {
           console.log(`Error finding product: ${err.message}`);

@@ -1,6 +1,11 @@
+// fetch user from local storage
+// const storedUser = localStorage.getItem('user');
+// const user = JSON.parse(storedUser);
+
 // show the cart when page opens
 $(document).ready(() => {
   document.getElementById('firebaseui-auth-container').style.display = 'none';
+  // Retrieving the user from local storage
   showCart();
 });
 
