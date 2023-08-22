@@ -304,6 +304,7 @@ async function signOutUser() {
   try {
     await firebase.auth().signOut();
     console.log('User signed out successfully');
+    location.reload();
   } catch (error) {
     console.error('Error signing out user:', error);
   }
