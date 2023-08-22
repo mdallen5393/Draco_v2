@@ -7,8 +7,17 @@ async function showCart() {
   await db.collection('Carts').onSnapshot((querySnapshot) => {
     // populate the cart
     querySnapshot.forEach((doc) => {
-      // clean out cart
+      // clean out cart and costs
       $('#cart').empty();
+      $('#subtotal').empty();
+      $('#owls').empty();
+      $('#total').empty();
+
+      // track costs
+      let subtotal = 0;
+      let owls = 0;
+
+      // look thru user's cart
       doc.data().products.forEach((product) => {
         // make cart object
         let li = $(`
@@ -59,9 +68,19 @@ async function showCart() {
             </div>
           </div>
         `);
+
         // add cart object to cart
         $('#cart').append(li);
+
+        // add costs
+        subtotal += product.price * product.count;
+        owls += product.shipping * product.count;
       });
+
+      // update costs for user's payment method
+      $('#subtotal').append(subtotal);
+      $('#owls').append(owls);
+      $('#total').append(subtotal + owls);
     });
   });
 }
