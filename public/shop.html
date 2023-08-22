@@ -153,8 +153,26 @@
     <section id="shop">
       <div
         class="d-flex flex-wrap justify-content-center py-5"
-        id="products"
-      ></div>
+        id="products">
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+          <li class="page-item prev-page">
+            <a class="page-link" href="#" aria-label="Previous" onclick="loadPreviousPage()">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          <!-- Page numbers will be dynamically generated here -->
+          <li class="page-item next-page">
+            <a class="page-link" href="#" aria-label="Next" onclick="loadNextPage()">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <!-- FOOTER -->

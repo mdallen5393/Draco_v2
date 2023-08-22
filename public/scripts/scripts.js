@@ -16,65 +16,146 @@ const db = firebase.firestore(app);
 let ul = $('#product-list');
 let testimonials = $('#testimonials-list');
 
-function loadProductList() {
-  // products page content
-  db.collection('Products').onSnapshot((querySnapshot) => {
-    // empty out the products
-    $('#products').empty();
-    // create the products
+
+// Function to load products for a specific page
+// Pagination variables
+const productsPerPage = 6;
+let currentPage = 1;
+let lastVisibleDoc = null;  // Store the last document from the previous query
+
+function loadProductsPage(pageNumber) {
+  const productsRef = db.collection('Products');
+  // const query = productsRef
+  //   .limit(productsPerPage)
+  //   .startAfter((pageNumber - 1) * productsPerPage);
+
+  let query = productsRef.orderBy('name').limit(productsPerPage);  // Using 'name' for ordering
+
+  if (pageNumber !== 1 && lastVisibleDoc) {
+    query = query.startAfter(lastVisibleDoc);
+  }
+  query.onSnapshot((querySnapshot) => {
+    $('#products').empty(); // Empty out the products
+
     querySnapshot.forEach((doc) => {
       let li = $(`
-      <div
-        class="card d-flex justify-content-center m-3 shadow"
-        style="width: 18rem"
-        id="${doc.id}"
-      >
-        <img
-          src="${doc.data().imageURL}"
-          class="card-img-top"
-          alt="product image"
-          style="width: 100%; height: auto"
-        />
-        <hr style="width: 90%; margin: auto" />
-        <div class="card-body d-flex flex-column text-center">
-          <div class="d-flex row">
-            <h4 class="livvic gold">${doc.data().name}</h4>
-            <p>${doc.data().description}</p>
+        <div
+          class="card d-flex justify-content-center m-3 shadow"
+          style="width: 18rem"
+          id="${doc.data().keywords.forEach((keyword) => keyword)}"
+        >
+          <img
+            src="${doc.data().imageURL}"
+            class="card-img-top"
+            alt="product image"
+            style="width: 100%; height: auto"
+          />
+          <hr style="width: 90%; margin: auto" />
+          <div class="card-body d-flex flex-column text-center">
+            <div class="d-flex row">
+              <h4 class="livvic gold">${doc.data().name}</h4>
+              <p>${doc.data().description}</p>
+            </div>
+          </div>
+          <div class="card-footer d-flex pt-3">
+            <div class="d-flex mx-2">
+              <img
+                src="images/misc/galleon_black.png"
+                class="pt-2 pb-3"
+                style="width: 10%"
+              />
+              <h2 class="py-1">${doc.data().price}</h2>
+            </div>
+            <div class="pt-2 mx-2">
+              <i
+                class="fa-solid fa-cart-shopping"
+                onclick="addToCart('${doc.data().name}', '${doc.data().price}')"
+              ></i>
+            </div>
           </div>
         </div>
-        <div class="card-footer d-flex pt-3">
-          <div class="d-flex mx-2">
-            <img
-              src="images/misc/galleon_black.png"
-              class="pt-2 pb-3"
-              style="width: 10%"
-            />
-            <h2 class="py-1">${doc.data().price}</h2>
-          </div>
-          <div class="pt-2 mx-2">
-            <i
-              class="fa-solid fa-cart-shopping"
-              onclick="addToCart('${doc.id}')"
-            ></i>
-          </div>
-        </div>
-      </div>
-    `);
-      // add the product
+      `);
+
       $('#products').append(li);
     });
+    lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
   });
 }
 
-// Testimonials Carousel`
-let imagesLoaded = 0;
+loadProductsPage(currentPage);
 
-db.collection('Testimonials')
-  .get()
-  .then((querySnapshot) => {
-    let first = true;
-    querySnapshot.forEach((doc) => {
-      let li = $(`
+
+function loadPreviousPage() {
+  console.log('pressed previous')
+  if (currentPage > 1) {
+    currentPage--;
+    loadProductsPage(currentPage);
+  }
+}
+
+function loadNextPage() {
+  console.log('pressed next page');
+  currentPage++;
+  loadProductsPage(currentPage);
+}
+
+  // products page content OLD LIKE YOUR MOTHER
+  // db.collection('Products').onSnapshot((querySnapshot) => {
+  //   // empty out the products
+  //   $('#products').empty();
+  //   // create the products
+  //   querySnapshot.forEach((doc) => {
+  //     let li = $(`
+  //       <div
+  //         class="card d-flex justify-content-center m-3 shadow"
+  //         style="width: 18rem"
+  //         id="${doc.data().keywords.forEach((keyword) => keyword)}"
+  //       >
+  //         <img
+  //           src="${doc.data().imageURL}"
+  //           class="card-img-top"
+  //           alt="product image"
+  //           style="width: 100%; height: auto"
+  //         />
+  //         <hr style="width: 90%; margin: auto" />
+  //         <div class="card-body d-flex flex-column text-center">
+  //           <div class="d-flex row">
+  //             <h4 class="livvic gold">${doc.data().name}</h4>
+  //             <p>${doc.data().description}</p>
+  //           </div>
+  //         </div>
+  //         <div class="card-footer d-flex pt-3">
+  //           <div class="d-flex mx-2">
+  //             <img
+  //               src="images/misc/galleon_black.png"
+  //               class="pt-2 pb-3"
+  //               style="width: 10%"
+  //             />
+  //             <h2 class="py-1">${doc.data().price}</h2>
+  //           </div>
+  //           <div class="pt-2 mx-2">
+  //             <i
+  //               class="fa-solid fa-cart-shopping"
+  //               onclick="addToCart('${doc.data().name}', '${doc.data().price}')"
+  //             ></i>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     `);
+  //     // add the product
+  //     $('#products').append(li);
+  //   });
+  // });
+
+  // Testimonials Carousel`
+  let imagesLoaded = 0;
+
+  db.collection('Testimonials')
+    .get()
+    .then((querySnapshot) => {
+      let first = true;
+      querySnapshot.forEach((doc) => {
+        let li = $(`
       <div class="carousel-item ${first ? 'active' : ''}">
         <div class="container">
           <div class="row d-flex align-items-center">
@@ -96,61 +177,43 @@ db.collection('Testimonials')
         </div>
       </div>
     `);
-      $('#testimonials').append(li);
-      first = false;
+        $('#testimonials').append(li);
+        first = false;
 
-      // Add event listener for the load event to the image
-      li.find('img.content-image').on('load', () => {
-        imagesLoaded++;
-        if (imagesLoaded === querySnapshot.size) {
-          // All images have finished loading
-          setCarouselItemHeight();
-        }
+        // Add event listener for the load event to the image
+        li.find('img.content-image').on('load', () => {
+          imagesLoaded++;
+          if (imagesLoaded === querySnapshot.size) {
+            // All images have finished loading
+            setCarouselItemHeight();
+          }
+        });
       });
     });
+
+  // set carousel item height
+  function setCarouselItemHeight() {
+    let maxHeight = 0;
+    $('.carousel-item').each(function () {
+      let cardHeight = $(this).height();
+      if (cardHeight > maxHeight) {
+        maxHeight = cardHeight;
+      }
+    });
+    $('.carousel-item').height(maxHeight);
+  }
+
+  // scale carousel with window size
+  $(window).on('resize', function () {
+    let maxHeight = 0;
+    $('.carousel-item').height('auto'); // reset the height of all carousel items to auto
+    setCarouselItemHeight();
   });
 
-// set carousel item height
-function setCarouselItemHeight() {
-  let maxHeight = 0;
-  $('.carousel-item').each(function () {
-    let cardHeight = $(this).height();
-    if (cardHeight > maxHeight) {
-      maxHeight = cardHeight;
-    }
-  });
-  $('.carousel-item').height(maxHeight);
-}
-
-// scale carousel with window size
-$(window).on('resize', function () {
-  let maxHeight = 0;
-  $('.carousel-item').height('auto'); // reset the height of all carousel items to auto
-  setCarouselItemHeight();
-});
-
-// Owl carousel
-// $('.owl-carousel').owlCarousel({
-//   loop:true,
-//   margin:10,
-//   nav:true,
-//   responsive:{
-//       0:{
-//           items:1
-//       },
-//       600:{
-//           items:3
-//       },
-//       1000:{
-//           items:5
-//       }
-//   }
-// });
-
-// if no items match search, suggest contact page
-function doubleCheckProducts() {
-  if ($('#products').is(':empty')) {
-    $('#products').append(`
+  // if no items match search, suggest contact page
+  function doubleCheckProducts() {
+    if ($('#products').is(':empty')) {
+      $('#products').append(`
     <div class="d-flex p-5">
     <h5 class="livvic text-center">
     Sorry, no products match your description. Please visit our
@@ -160,8 +223,8 @@ function doubleCheckProducts() {
     </h5>
     </div>
     `);
+    }
   }
-}
 
 // search firestore for given keyword, and display products with it
 async function searchKeywords(keyword) {
@@ -208,25 +271,33 @@ async function searchKeywords(keyword) {
             <h2 class="py-1">${doc.data().price}</h2>
           </div>
           <div class="pt-2 mx-2">
-            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${
-              doc.data().name
-            }', '${doc.data().price}')"></i>
+            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${doc.data().name
+        }', '${doc.data().price}')"></i>
           </div>
         </div>
       </div>
     `);
-    $('#products').append(li);
-  });
-  doubleCheckProducts();
-}
+      $('#products').append(li);
+    });
 
-// press enter on the search field to search
-$('#search-bar').on('keyup', function (e) {
-  // check if enter is pressed
-  if (e.key === 'Enter' || e.keyCode === 13) {
-    // search thru keywords
-    searchKeywords(this.value);
+    // Adjust pagination controls
+    currentPage = 1;
+    $('#prevPage').prop('disabled', true); // Disable previous button on first page
+    $('#nextPage').prop('disabled', false); // Enable next button on search
+
+    // Load products for the first page
+    loadProductsPage(currentPage);
+
+    doubleCheckProducts();
   }
-});
+
+  // press enter on the search field to search
+  $('#search-bar').on('keyup', function (e) {
+    // check if enter is pressed
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      // search thru keywords
+      searchKeywords(this.value);
+    }
+  });
 
 // i need to make the search show all products
