@@ -16,17 +16,18 @@ const db = firebase.firestore(app);
 let ul = $('#product-list');
 let testimonials = $('#testimonials-list');
 
-// products page content
-db.collection('Products').onSnapshot((querySnapshot) => {
-  // empty out the products
-  $('#products').empty();
-  // create the products
-  querySnapshot.forEach((doc) => {
-    let li = $(`
+function loadProductList() {
+  // products page content
+  db.collection('Products').onSnapshot((querySnapshot) => {
+    // empty out the products
+    $('#products').empty();
+    // create the products
+    querySnapshot.forEach((doc) => {
+      let li = $(`
       <div
         class="card d-flex justify-content-center m-3 shadow"
         style="width: 18rem"
-        id="${doc.data().keywords.forEach((keyword) => keyword)}"
+        id="${doc.id}"
       >
         <img
           src="${doc.data().imageURL}"
@@ -59,10 +60,11 @@ db.collection('Products').onSnapshot((querySnapshot) => {
         </div>
       </div>
     `);
-    // add the product
-    $('#products').append(li);
+      // add the product
+      $('#products').append(li);
+    });
   });
-});
+}
 
 // Testimonials Carousel`
 let imagesLoaded = 0;
@@ -165,7 +167,7 @@ function doubleCheckProducts() {
 async function searchKeywords(keyword) {
   // check for empty string
   if (keyword.trim() === '') {
-    return;
+    loadProductList();
   }
   // query the db
   let query = db
@@ -181,7 +183,7 @@ async function searchKeywords(keyword) {
       <div
         class="card d-flex justify-content-center m-3 shadow"
         style="width: 18rem"
-        id="${doc.data().keywords.forEach((keyword) => keyword)}"
+        id="${doc.id}"
       >
         <img
           src="${doc.data().imageURL}"
@@ -206,8 +208,9 @@ async function searchKeywords(keyword) {
             <h2 class="py-1">${doc.data().price}</h2>
           </div>
           <div class="pt-2 mx-2">
-            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${doc.data().name
-      }', '${doc.data().price}')"></i>
+            <i class="fa-solid fa-cart-shopping" onclick="addToCart('${
+              doc.data().name
+            }', '${doc.data().price}')"></i>
           </div>
         </div>
       </div>

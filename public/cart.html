@@ -55,7 +55,7 @@
         </a>
 
         <ul class="dropdown-menu livvic" style="width: 5rem !important">
-          <li><a class="dropdown-item" href="auth.html">SHOP</a></li>
+          <li><a class="dropdown-item" href="shop.html">SHOP</a></li>
           <li><a class="dropdown-item" href="contact.html">CONTACT</a></li>
           <li>
             <a class="dropdown-item" href="cart.html"
@@ -76,7 +76,7 @@
           <li class="navbar-item">
             <a
               class="nav-link text-white mx-5 mx-lg-4 mx-sm-4"
-              href="auth.html"
+              href="shop.html"
               >SHOP</a
             >
           </li>
@@ -116,7 +116,7 @@
               <div class="row">
 
                 <div class="col-lg-7">
-                  <h5 class="mb-3 livvic fw-semibold"><a href="auth.html" class="text-body"><i class="fa-solid fa-circle-arrow-left"></i> BACK TO SHOP</a></h5>
+                  <h5 class="mb-3 livvic fw-semibold"><a href="shop.html" class="text-body"><i class="fa-solid fa-circle-arrow-left"></i> BACK TO SHOP</a></h5>
                   <hr>
                   <!-- Shopping Cart Items -->
                   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -125,7 +125,7 @@
                       <p class="mb-0">You have 4 items in your cart</p>
                     </div>
                   </div>
-                  <div class="items">
+                  <div id="cart" class="items">
                     <!-- Item 1-->
                     <div class="card mb-3">
                       <div class="card-body">
@@ -144,7 +144,7 @@
                             <div class="def-number-input number-input">
                               <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                 class="minus"></button>
-                              <input class="quantity fw-bold text-dark" min="0" name="quantity" value="1" type="number">
+                              <input class="quantity fw-bold text-dark" min="1" name="quantity" value="1" type="number">
                               <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="plus"></button>
                             </div>
@@ -413,7 +413,7 @@
 						<!-- Menu links -->
 						<ul class="list-unstyled mb-0">
 							<li>
-								<a href="auth.html" class="text-light text-decoration-none"
+								<a href="shop.html" class="text-light text-decoration-none"
 									>Shop</a
 								>
 							</li>
@@ -434,17 +434,17 @@
 						<h5 class="text-uppercase livvic color gold">Shop</h5>
 						<ul class="list-unstyled mb-0">
 							<li>
-								<a href="auth.html" class="text-light text-decoration-none"
+								<a href="shop.html" class="text-light text-decoration-none"
 									>Body</a
 								>
 							</li>
 							<li>
-								<a href="auth.html" class="text-light text-decoration-none"
+								<a href="shop.html" class="text-light text-decoration-none"
 									>Sleep</a
 								>
 							</li>
 							<li>
-								<a href="auth.html" class="text-light text-decoration-none"
+								<a href="shop.html" class="text-light text-decoration-none"
 									>Flight</a
 								>
 							</li>
@@ -502,8 +502,14 @@
 	<!-- FIREBASE/FIRESTORE SCRIPTS -->
 	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+
+  <!-- SCRIPTS -->
 	<script src="scripts/scripts.js"></script>
   <script type="module" src="scripts/auth.js"></script>
+  <script src="scripts/shop.js"></script>
+  <script src="scripts/cart.js"></script>
 
 </body>
 </html>

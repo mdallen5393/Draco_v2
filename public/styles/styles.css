@@ -329,4 +329,8 @@ img.rotate {
   background-color: var(--color-gold) !important;
 }
 
+#search-shop {
+  visibility: hidden;
+}
+
 /* #endregion */

@@ -35,8 +35,6 @@
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="styles/styles.css" />
-    <!-- FirebaseUI CSS -->
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.css" />
 
     <!-- JQUERY -->
     <script
@@ -62,7 +60,7 @@
           </a>
 
           <ul class="dropdown-menu livvic" style="width: 5rem !important">
-            <li><a class="dropdown-item" href="auth.html">SHOP</a></li>
+            <li><a class="dropdown-item" href="shop.html">SHOP</a></li>
             <li><a class="dropdown-item" href="contact.html">CONTACT</a></li>
             <li>
               <a class="dropdown-item" id="burger-cart" href="cart.html"
@@ -83,7 +81,7 @@
             <li class="navbar-item">
               <a
                 class="nav-link text-white mx-5 mx-lg-4 mx-sm-4"
-                href="auth.html"
+                href="shop.html"
                 >SHOP</a
               >
             </li>
@@ -117,7 +115,9 @@
     <section id="search-shop" class="w-100 d-flex justify-content-center pt-5">
       <div class="row d-flex justify-content-center pt-3">
         <div class="col-auto">
-          <p class="d-none d-lg-flex pt-2 font-monospace livvic">Peruse our Products</p>
+          <p class="d-none d-lg-flex pt-2 font-monospace livvic">
+            Peruse our Products
+          </p>
         </div>
         <div class="col-auto">
           <!-- Email input -->
@@ -144,17 +144,18 @@
       </div>
     </section>
 
-    <!-- PRODUCTS -->
-    <section id="shop">
-      </div>
-      <div class="d-flex flex-wrap justify-content-center py-5" id="products">
-      </div>
-    </section>
-
     <!-- AUTH UI -->
     <section id="auth" class="py-5">
-      <div id="firebaseui-auth-container">
-    </section> 
+      <div id="firebaseui-auth-container"></div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="shop">
+      <div
+        class="d-flex flex-wrap justify-content-center py-5"
+        id="products"
+      ></div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="bg-dark text-center text-white" id="footy">
@@ -232,7 +233,7 @@
               <!-- Menu links -->
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="auth.html" class="text-light text-decoration-none"
+                  <a href="shop.html" class="text-light text-decoration-none"
                     >Shop</a
                   >
                 </li>
@@ -253,17 +254,17 @@
               <h5 class="text-uppercase livvic color gold">Shop</h5>
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="auth.html" class="text-light text-decoration-none"
+                  <a href="shop.html" class="text-light text-decoration-none"
                     >Body</a
                   >
                 </li>
                 <li>
-                  <a href="auth.html" class="text-light text-decoration-none"
+                  <a href="shop.html" class="text-light text-decoration-none"
                     >Sleep</a
                   >
                 </li>
                 <li>
-                  <a href="auth.html" class="text-light text-decoration-none"
+                  <a href="shop.html" class="text-light text-decoration-none"
                     >Flight</a
                   >
                 </li>
@@ -274,17 +275,23 @@
               <h5 class="text-uppercase livvic color gold">Help</h5>
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="contact.html#about" class="text-light text-decoration-none"
+                  <a
+                    href="contact.html#about"
+                    class="text-light text-decoration-none"
                     >About</a
                   >
                 </li>
                 <li>
-                  <a href="contact.html#faq" class="text-light text-decoration-none"
+                  <a
+                    href="contact.html#faq"
+                    class="text-light text-decoration-none"
                     >FAQ</a
                   >
                 </li>
                 <li>
-                  <a href="contact.html#contact_form" class="text-light text-decoration-none"
+                  <a
+                    href="contact.html#contact_form"
+                    class="text-light text-decoration-none"
                     >Contact</a
                   >
                 </li>
@@ -323,12 +330,18 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
     <!-- FirebaseUI JavaScript -->
-    <script src="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.js"></script>
+    <!-- <script src="https://cdn.firebase.com/libs/firebaseui/5.0.0/firebaseui.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"
+    />
 
     <script src="scripts/scripts.js"></script>
     <script type="module" src="scripts/auth.js"></script>
     <script src="scripts/pages.js"></script>
     <script src="scripts/cart.js"></script>
-   
+    <script src="scripts/shop.js"></script>
   </body>
 </html>
