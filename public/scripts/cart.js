@@ -4,91 +4,103 @@
 
 // show the cart when page opens
 $(document).ready(() => {
-  document.getElementById('firebaseui-auth-container').style.display = 'none';
   // Retrieving the user from local storage
-  showCart();
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/v8/firebase.User
+      $('#firebaseui-auth-container').hide();
+      const uid = user.uid;
+      console.log(uid);
+      showCart(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 });
 
 // show user's cart
-async function showCart() {
-  await db.collection('Carts').onSnapshot((querySnapshot) => {
+async function showCart(userID) {
+  const userCart = await db.collection('Carts').doc(userID);
+  userCart.onSnapshot((querySnapshot) => {
+    console.log(querySnapshot.data());
+
+    // clean out cart and costs
+    $('#cart').empty();
+    $('#subtotal').empty();
+    $('#owls').empty();
+    $('#total').empty();
+
+    // track costs
+    let subtotal = 0;
+    let owls = 0;
+
     // populate the cart
-    querySnapshot.forEach((doc) => {
-      // clean out cart and costs
-      $('#cart').empty();
-      $('#subtotal').empty();
-      $('#owls').empty();
-      $('#total').empty();
-
-      // track costs
-      let subtotal = 0;
-      let owls = 0;
-
-      // look thru user's cart
-      doc.data().products.forEach((product) => {
-        // make cart object
-        let li = $(`
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                  <div>
-                    <img
-                      src="${product.imageURL}"
-                      class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;"
-                    >
-                  </div>
-                  <div class="ms-3">
-                    <p class="livvic">${product.name}</p>
-                  </div>
-                </div>
-                <div class="d-flex flex-row align-items-center">
-                  <div class="def-number-input number-input">
-                    <button
-                      onclick="updateCount('${product.id}', 'minus')"
-                      class="minus"
-                    ></button>
-                    <input
-                      class="quantity fw-bold text-dark"
-                      min="1"
-                      name="quantity"
-                      value="${product.count}"
-                      type="number"
-                    >
-                    <button
-                      onclick="updateCount('${product.id}', 'plus')"
-                      class="plus"
-                    ></button>
-                  </div>
-                  <div style="width: 80px;">
-                    <h5 class="mb-0">${product.price * product.count}</h5>
-                  </div>
-                  <a
-                    href="#!"
-                    onclick="removeProduct('${product.id}')"
-                    style="color: #cecece;"
+    querySnapshot.data().products.forEach((product) => {
+      // make cart object
+      let li = $(`
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <div>
+                  <img
+                    src="${product.imageURL}"
+                    class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;"
                   >
-                    <i class="fa-solid fa-broom"></i>
-                  </a>
                 </div>
+                <div class="ms-3">
+                  <p class="livvic">${product.name}</p>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center">
+                <div class="def-number-input number-input">
+                  <button
+                    onclick="updateCount('${product.id}', 'minus')"
+                    class="minus"
+                  ></button>
+                  <input
+                    class="quantity fw-bold text-dark"
+                    min="1"
+                    name="quantity"
+                    value="${product.count}"
+                    type="number"
+                  >
+                  <button
+                    onclick="updateCount('${product.id}', 'plus')"
+                    class="plus"
+                  ></button>
+                </div>
+                <div style="width: 80px;">
+                  <h5 class="mb-0">${product.price * product.count}</h5>
+                </div>
+                <a
+                  href="#!"
+                  onclick="removeProduct('${product.id}')"
+                  style="color: #cecece;"
+                >
+                  <i class="fa-solid fa-broom"></i>
+                </a>
               </div>
             </div>
           </div>
-        `);
+        </div>
+      `);
 
-        // add cart object to cart
-        $('#cart').append(li);
+      // add cart object to cart
+      $('#cart').append(li);
 
-        // add costs
-        subtotal += product.price * product.count;
-        owls += product.shipping * product.count;
-      });
-
-      // update costs for user's payment method
-      $('#subtotal').append(subtotal);
-      $('#owls').append(owls);
-      $('#total').append(subtotal + owls);
+      // add costs
+      subtotal += product.price * product.count;
+      owls += product.shipping * product.count;
     });
+
+    // update costs for user's payment method
+    $('#subtotal').append(subtotal);
+    $('#owls').append(owls);
+    $('#total').append(subtotal + owls);
   });
 }
 
@@ -125,7 +137,7 @@ async function removeProduct(productID) {
         console.log('Product removed from cart successfully');
 
         // show the new cart
-        showCart();
+        showCart(userId);
       } else {
         console.log('Cart document does not exist');
       }

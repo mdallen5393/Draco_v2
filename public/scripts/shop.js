@@ -1,3 +1,21 @@
+// show the cart when page opens
+$(document).ready(() => {
+  // Retrieving the user from local storage
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/v8/firebase.User
+      $('#firebaseui-auth-container').hide();
+      const uid = user.uid;
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+});
+
 // add a product to the user's cart
 async function addToCart(productDoc) {
   if (firebase.auth().currentUser) {
