@@ -6,6 +6,9 @@ $(document).ready(() => {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/v8/firebase.User
       $('#firebaseui-auth-container').hide();
+      document.getElementById('search-shop').style.visibility = 'visible';
+
+      // get firebase user id
       const uid = user.uid;
       console.log(uid);
       // ...
